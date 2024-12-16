@@ -1,0 +1,25 @@
+{
+  "userSignupData": {
+    "name": "abram",
+    "email": "absa@mail"
+  },
+  "userRegistrationData": {
+    "password": "123456",
+    "gender": "id_gender1",
+    "userBirthdateData": {
+      "dayOfBirth": "13",
+      "monthOfBirth": "7",
+      "yearOfBirth": "2002"
+    },
+    "firstName": "Tester",
+    "lastName": "User",
+    "companyName": "Automation Test Company",
+    "address1": "123 Test Street",
+    "address2": "Suite 456",
+    "country": "United States",
+    "state": "California",
+    "city": "Los Angeles",
+    "zipCode": "90001",
+    "mobileNumber": "1234567890"
+  }
+}
