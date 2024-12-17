@@ -64,7 +64,7 @@ jobs:
     name: Ubuntu Chrome Test
     # If triggerPR is true, this job will run
     if: ${{ github.event.inputs.triggerPR == 'true' }}  
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
