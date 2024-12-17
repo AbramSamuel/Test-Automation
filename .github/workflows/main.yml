@@ -7,7 +7,7 @@ on:
       - main
   # Triggering on a specific time (e.g., daily at midnight UTC)
   schedule:
-    - cron: '*/5 0 * * *'  # Every day at midnight UTC
+    - cron: '0 0 * * */3'  # Every day at midnight UTC
     
   # Manually triggered workflow with inputs for browser, headless options, and pull request option
   workflow_dispatch:
