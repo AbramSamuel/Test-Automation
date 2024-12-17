@@ -28,7 +28,6 @@ on:
 jobs:
   windows_edge:
     name: Windows Edge Test
-    # If triggerPR is true, this job will run
     if: ${{ github.event.inputs.triggerPR == 'true' }}  
     runs-on: windows-latest
     steps:
