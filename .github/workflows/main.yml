@@ -64,11 +64,18 @@ jobs:
     name: Ubuntu Chrome Test
     # If triggerPR is true, this job will run
     if: ${{ github.event.inputs.triggerPR == 'true' }}  
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
-        
+          
+        - name: Install Chrome
+          run: sudo apt-get install -y google-chrome-stable
+    
+        - name: Set up ChromeDriver
+          uses: actions/setup-chromedriver@v1
+          with:
+            version: 'latest'
         - name: Set up JDK 21
           uses: actions/setup-java@v4
           with:
