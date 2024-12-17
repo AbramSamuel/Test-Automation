@@ -43,7 +43,7 @@ jobs:
             maven-version: 3.9.9
   
         - name: Build and test
-          run: mvn -Dbrowser="edge" -Dtest="automationexercise.tests.UserRegistrationTest" test
+          run: mvn -Dbrowser="edge" -Dheadless="true" -Dtest="automationexercise.tests.UserRegistrationTest" test
   
         - name: Generate Allure Report
           run: mvn allure:report
@@ -86,7 +86,7 @@ jobs:
             maven-version: 3.9.9
   
         - name: Build and test
-          run: mvn -Dbrowser="chrome" -Dtest="automationexercise.tests.UserRegistrationTest" test
+          run: mvn -Dbrowser="chrome" -Dheadless="true" -Dtest="automationexercise.tests.UserRegistrationTest" test
   
         - name: Generate Allure Report
           run: mvn allure:report
