@@ -62,6 +62,7 @@ jobs:
 
   ubuntu_chrome:
     name: Ubuntu Chrome Test
+    # If triggerPR is true, this job will run
     if: ${{ github.event.inputs.triggerPR == 'true' }}  
     runs-on: ubuntu-latest
     steps:
