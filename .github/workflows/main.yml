@@ -15,7 +15,7 @@ on:
       allureReportPath:
         description: 'Specify the Allure report path'
         required: false
-        default: 'target/site/allure-maven-plugin'
+        default: 'target/site/allure-maven-plugin/index.html'
       triggerPR:
         description: 'Trigger workflow on pull request to main branch (true/false)'
         required: true
@@ -57,6 +57,13 @@ jobs:
           name: Allure Report Windows Test
           path: ${{ github.event.inputs.allureReportPath }}
 
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+            files: |
+              target/surefire-reports/TEST-*.xml
+
   ubuntu_chrome:
     name: Ubuntu Chrome Test
     if: ${{ github.event.inputs.triggerPR == 'true' }}
@@ -91,3 +98,10 @@ jobs:
         with:
           name: Allure Report Windows Test
           path: ${{ github.event.inputs.allureReportPath }}
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+            files: |
+              target/surefire-reports/TEST-*.xml
