@@ -92,11 +92,8 @@ jobs:
         continue-on-error: true
         run: mvn allure:report
 
-      - name: Publish Report
-        continue-on-error: true
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v3
         with:
-          name: Tests Report Headless Ubuntu Chrome
-          path: 'target/surefire-reports/TEST-*.xml'
-          reporter: java-junit
+          name: Allure Report Windows Test
+          path: ${{ github.event.inputs.allureReportPath }}
