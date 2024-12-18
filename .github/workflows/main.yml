@@ -15,7 +15,7 @@ on:
       allureReportPath:
         description: 'Specify the Allure report path'
         required: false
-        default: 'target/allure-report'  # Default path if not provided
+        default: 'target/site/allure-maven-plugin/index.html'  # Default path if not provided
       triggerPR:
         description: 'Trigger workflow on pull request to main branch (true/false)'
         required: true
@@ -49,12 +49,21 @@ jobs:
           continue-on-error: true
           run: mvn allure:report
     
-        - name: Upload Allure report as artifact
+        - name: Upload Allure Report
           uses: actions/upload-artifact@v3
           with:
-            name: allure-report
-            path: ${{ github.event.inputs.allureReportPath }}
-
+            name: Allure Report ubento test
+            path: target/site/allure-maven-plugin/index.html
+            
+        - name: Publish Report
+          continue-on-error: true
+          uses: dorny/test-reporter@v1
+          if: success() || failure()
+          with:
+            name: Tests Report Headless_Ubuntu
+            path: 'target/surefire-reports/TEST-*.xml'
+            reporter: java-junit
+            
   ubuntu_chrome:
     name: Ubuntu Chrome Test
     # If triggerPR is true, this job will run
@@ -91,8 +100,17 @@ jobs:
           continue-on-error: true
           run: mvn allure:report
           
-        - name: Upload Allure report as artifact
+        - name: Upload Allure Report
           uses: actions/upload-artifact@v3
           with:
-            name: allure-report
+            name: Allure Report ubento test
             path: ${{ github.event.inputs.allureReportPath }}
+            
+        - name: Publish Report
+          continue-on-error: true
+          uses: dorny/test-reporter@v1
+          if: success() || failure()
+          with:
+            name: Tests Report Headless_Ubuntu
+            path: ${{ github.event.inputs.allureReportPath }}
+            reporter: java-junit
