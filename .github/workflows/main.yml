@@ -2,7 +2,7 @@ name: E2E Test Case 1 Register User
 
 permissions:
   contents: write  # Grants write access to contents
-  actions: write   # Required for uploading artifacts
+  actions: write   # Ensures actions can upload artifacts
 
 on:
   pull_request:
@@ -53,6 +53,8 @@ jobs:
         with:
           name: Allure Report Windows Test
           path: ${{ github.event.inputs.allureReportPath }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Report
         continue-on-error: true
@@ -66,7 +68,7 @@ jobs:
   ubuntu_chrome:
     name: Ubuntu Chrome Test
     if: ${{ github.event.inputs.triggerPR == 'true' }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -100,6 +102,8 @@ jobs:
         with:
           name: Allure Report Ubuntu Test
           path: ${{ github.event.inputs.allureReportPath }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Report
         continue-on-error: true
