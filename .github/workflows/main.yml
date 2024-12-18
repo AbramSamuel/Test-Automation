@@ -48,14 +48,6 @@ jobs:
         continue-on-error: true
         run: mvn allure:report
 
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: Allure Report Windows Test
-          path: ${{ github.event.inputs.allureReportPath }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Publish Report
         continue-on-error: true
         uses: dorny/test-reporter@v1
@@ -96,14 +88,6 @@ jobs:
       - name: Generate Allure Report
         continue-on-error: true
         run: mvn allure:report
-
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: Allure Report Ubuntu Test
-          path: ${{ github.event.inputs.allureReportPath }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Report
         continue-on-error: true
