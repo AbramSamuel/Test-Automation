@@ -26,6 +26,9 @@ jobs:
     name: Windows Edge Test
     if: ${{ github.event.inputs.triggerPR == 'true' }}
     runs-on: windows-latest
+    permissions:
+      contents: write  # Grants write access to contents
+      actions: write   # Ensures actions can upload artifacts
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -48,19 +51,19 @@ jobs:
         continue-on-error: true
         run: mvn allure:report
 
-      - name: Publish Report
-        continue-on-error: true
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v3
         with:
-          name: Tests Report Headless Windows Edge
-          path: 'target/surefire-reports/TEST-*.xml'
-          reporter: java-junit
+          name: Allure Report Windows Test
+          path: ${{ github.event.inputs.allureReportPath }}
 
   ubuntu_chrome:
     name: Ubuntu Chrome Test
     if: ${{ github.event.inputs.triggerPR == 'true' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Grants write access to contents
+      actions: write   # Ensures actions can upload artifacts
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
