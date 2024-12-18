@@ -52,7 +52,7 @@ jobs:
         run: mvn allure:report
 
       - name: Upload Allure Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Allure Report Windows Test
           path: ${{ github.event.inputs.allureReportPath }}
@@ -60,19 +60,13 @@ jobs:
   ubuntu_chrome:
     name: Ubuntu Chrome Test
     if: ${{ github.event.inputs.triggerPR == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       contents: write  # Grants write access to contents
       actions: write   # Ensures actions can upload artifacts
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Install Chrome and ChromeDriver
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 'latest'
-          install-chromedriver: true
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -93,7 +87,7 @@ jobs:
         run: mvn allure:report
 
       - name: Upload Allure Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Allure Report Windows Test
           path: ${{ github.event.inputs.allureReportPath }}
