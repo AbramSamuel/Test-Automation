@@ -9,7 +9,6 @@ on:
   schedule:
     - cron: '0 0 * * */3'
     
-  # Manually triggered workflow with inputs for browser, headless options, and pull request option
   workflow_dispatch:
     inputs:
       allureReportPath:
