@@ -52,15 +52,15 @@ jobs:
         - name: Upload Allure Report
           uses: actions/upload-artifact@v3
           with:
-            name: Allure Report ubento test
-            path: target/site/allure-maven-plugin/index.html
+            name: Allure Report Windows Test
+            path: ${{ github.event.inputs.allureReportPath }}
             
         - name: Publish Report
           continue-on-error: true
           uses: dorny/test-reporter@v1
           if: success() || failure()
           with:
-            name: Tests Report Headless_Ubuntu
+            name: Tests Report Headless Windows Edge
             path: 'target/surefire-reports/TEST-*.xml'
             reporter: java-junit
             
@@ -68,7 +68,7 @@ jobs:
     name: Ubuntu Chrome Test
     # If triggerPR is true, this job will run
     if: ${{ github.event.inputs.triggerPR == 'true' }}  
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -78,10 +78,7 @@ jobs:
           with:
             chrome-version: 'latest'
             install-chromedriver: true
-    
-        - name: Install dependencies
-          run: sudo apt-get install -y libnss3 libgconf-2-4
-      
+            
         - name: Set up JDK 21
           uses: actions/setup-java@v4
           with:
@@ -103,7 +100,7 @@ jobs:
         - name: Upload Allure Report
           uses: actions/upload-artifact@v3
           with:
-            name: Allure Report ubento test
+            name: Allure Report Ubuntu Test
             path: ${{ github.event.inputs.allureReportPath }}
             
         - name: Publish Report
@@ -111,6 +108,6 @@ jobs:
           uses: dorny/test-reporter@v1
           if: success() || failure()
           with:
-            name: Tests Report Headless_Ubuntu
-            path: ${{ github.event.inputs.allureReportPath }}
+            name: Tests Report Headless Ubuntu Chrome
+            path: 'target/surefire-reports/TEST-*.xml'
             reporter: java-junit
