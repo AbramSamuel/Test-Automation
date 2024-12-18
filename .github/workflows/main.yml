@@ -1,4 +1,4 @@
-name: E2E Tests
+name: E2E Test Case 1 Register User
 
 on:
   schedule:
@@ -12,9 +12,14 @@ on:
      testsPath:
        description: 'Path to Tests to be Executed'
        default: 'automationexercise.tests.UserRegistrationTest'
+     triggerPR:
+      description: 'Trigger workflow on pull request to main branch (true/false)'
+      required: true
+      default: 'false'  # Default to not trigger PR workflow
 
 jobs:
   E2E_Chrome_Linux_Test:
+    if: ${{ github.event.inputs.triggerPR == 'true' }}  
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -53,7 +58,9 @@ jobs:
         with:
           files: |
             target/surefire-reports/TEST-*.xml
+            
   E2E_Edge_Windows_Test:
+    if: ${{ github.event.inputs.triggerPR == 'true' }}  
     runs-on: windows-latest
     permissions:
       checks: write
