@@ -18,7 +18,7 @@ on:
       default: 'false'  # Default to not trigger PR workflow
 
 jobs:
-  E2E_Chrome_Linux_Test:
+  E2E_Ubuntu_Chrome_Test:
     if: ${{ github.event.inputs.triggerPR == 'true' }}  
     runs-on: ubuntu-latest
     permissions:
@@ -59,7 +59,7 @@ jobs:
           files: |
             target/surefire-reports/TEST-*.xml
             
-  E2E_Edge_Windows_Test:
+  E2E_Windows_Edge_Tests:
     if: ${{ github.event.inputs.triggerPR == 'true' }}  
     runs-on: windows-latest
     permissions:
