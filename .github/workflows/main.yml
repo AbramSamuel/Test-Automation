@@ -2,7 +2,7 @@ name: E2E Test Case 1 Register User
 
 on:
   schedule:
-    - cron: '0 */6 * * 6'  # Runs every at 2 AM on Thursday
+    - cron: '0 */6 * * *' 
 
   pull_request:
     branches: [ "main" ]
@@ -38,21 +38,21 @@ jobs:
         with:
           maven-version: 3.9.9
 
-      - name: Execute Tests
+      - name: Execute Ububtu Chrome Tests
         continue-on-error: true
         run: mvn test -Dbrowser="chrome" -Dheadless="true" -Dtest="${{ github.event.inputs.testsPath }}"
 
-      - name: Generate Allure Report Single File
+      - name: Generate Allure Report Single File 
         continue-on-error: true
         run: mvn allure:report
 
       - name: Upload Allure Report as Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Chrome_Linux_Allure
+          name: Ubuntu Chrome Tests Allure Report
           path: target/site/allure-maven-plugin/index.html
 
-      - name: Publish Test Results
+      - name: Publish Ubuntu Chrome Tests Allure Report Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
@@ -79,7 +79,7 @@ jobs:
         with:
           maven-version: 3.9.9
 
-      - name: Execute Tests
+      - name: Execute Windows Edge Tests
         continue-on-error: true
         run: mvn test -Dbrowser="edge" -Dheadless="false" -Dtest="${{ github.event.inputs.testsPath }}"
 
@@ -90,11 +90,11 @@ jobs:
       - name: Upload Allure Report as Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Edge_Windows_Allure
+          name: Windows Edge Tests Allure Report
           path: target/site/allure-maven-plugin/index.html
 
 
-      - name: Publish Test Results
+      - name: Publish Windows Edge Tests Allure Report Results
         uses: EnricoMi/publish-unit-test-result-action/windows@v2
         if: always()
         with:
